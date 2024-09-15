@@ -9,10 +9,10 @@ IF(
         "Last Month",
         IF(
             YEAR('Viz Payments'[DatePay]) = YEAR(TODAY()) - 1
-            && MONTH('Viz Payments'[DatePay]) = 12 
+            && MONTH('Viz Payments'[DatePay]) = 12
             && MONTH(TODAY()) = 1,
             "Last Month",
-            ""
+            "Older Month"
         )
     )
 )
