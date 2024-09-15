@@ -1,25 +1,29 @@
-DateTable2 = 
-ADDCOLUMNS(
-    CALENDARAUTO(),
-    "Year", YEAR([Date]),
-    "Month", MONTH([Date]),
-    "Month Name", FORMAT([Date], "MMMM"),
-    "Quarter", "Q" & QUARTER([Date]),
-    "Quarter Number", QUARTER([Date]),
-    "Month Number", MONTH([Date]),
-    "Day", DAY([Date]),
-    "Weekday", WEEKDAY([Date], 2),  // 2 means Monday = 1, Sunday = 7
-    "Weekday Name", FORMAT([Date], "dddd"),
-    "Year-Month", FORMAT([Date], "YYYY-MM"),
-    "IsCurrentMonth", IF(
-        YEAR([Date]) = YEAR(TODAY()) && MONTH([Date]) = MONTH(TODAY()),
-        TRUE(),
-        FALSE()
-    ),
-    "IsLastMonth", IF(
-        (YEAR([Date]) = YEAR(TODAY()) && MONTH([Date]) = MONTH(TODAY()) - 1) || 
-        (MONTH(TODAY()) = 1 && YEAR([Date]) = YEAR(TODAY()) - 1 && MONTH([Date]) = 12),
-        TRUE(),
-        FALSE()
+Column =
+IF(
+    'Viz payments'[quater] = MAX('Viz payments'[quater]),
+    "Current Quarter",
+    IF(
+        'Viz payments'[quater] = MAX('Viz payments'[quater]) - 1,
+        "Last Quarter",
+        IF(
+            'Viz payments'[quater] = MAX('Viz payments'[quater]) - 7,
+            "Last Quarter (7 quarters ago)",
+            "Other Quarter"
+        )
+    )
+)
+&
+" | " & 
+IF(
+    'Viz payments'[Month] = MAX('Viz payments'[Month]),
+    "Current Month",
+    IF(
+        'Viz payments'[Month] = MAX('Viz payments'[Month]) - 1,
+        "Last Month",
+        IF(
+            'Viz payments'[Month] = MAX('Viz payments'[Month]) - 12,
+            "Last Month (12 months ago)",
+            "Other Month"
+        )
     )
 )
