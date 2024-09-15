@@ -1,12 +1,18 @@
 Column2 =
 IF(
-    YEAR('Viz payments'[DatePay]) = YEAR(TODAY())
-    && MONTH('Viz payments'[DatePay]) = MONTH(TODAY()),
+    YEAR('Viz Payments'[DatePay]) = YEAR(TODAY()) 
+    && MONTH('Viz Payments'[DatePay]) = MONTH(TODAY()),
     "Current Month",
     IF(
-        YEAR('Viz payments'[DatePay]) = YEAR(TODAY())
-        && MONTH('Viz payments'[DatePay]) = MONTH(TODAY()) - 1,
+        YEAR('Viz Payments'[DatePay]) = YEAR(TODAY())
+        && MONTH('Viz Payments'[DatePay]) = MONTH(TODAY()) - 1,
         "Last Month",
-        ""
+        IF(
+            YEAR('Viz Payments'[DatePay]) = YEAR(TODAY()) - 1
+            && MONTH('Viz Payments'[DatePay]) = 12 
+            && MONTH(TODAY()) = 1,
+            "Last Month",
+            ""
+        )
     )
 )
