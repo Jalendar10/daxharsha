@@ -1,18 +1,26 @@
-Column2 =
+CombinedPeriod = 
 IF(
-    YEAR('Viz Payments'[DatePay]) = YEAR(TODAY()) 
-    && MONTH('Viz Payments'[DatePay]) = MONTH(TODAY()),
-    "Current Month",
+    'Viz Payments'[quater] = MAX('Viz Payments'[quater]),
+    "Current Quarter",
     IF(
-        YEAR('Viz Payments'[DatePay]) = YEAR(TODAY())
-        && MONTH('Viz Payments'[DatePay]) = MONTH(TODAY()) - 1,
-        "Last Month",
+        'Viz Payments'[quater] = MAX('Viz Payments'[quater]) - 1,
+        "Last Quarter",
         IF(
-            YEAR('Viz Payments'[DatePay]) = YEAR(TODAY()) - 1
-            && MONTH('Viz Payments'[DatePay]) = 12
-            && MONTH(TODAY()) = 1,
-            "Last Month",
-            "Older Month"
+            YEAR('Viz Payments'[DatePay]) = YEAR(TODAY())
+            && MONTH('Viz Payments'[DatePay]) = MONTH(TODAY()),
+            "Current Month",
+            IF(
+                YEAR('Viz Payments'[DatePay]) = YEAR(TODAY())
+                && MONTH('Viz Payments'[DatePay]) = MONTH(TODAY()) - 1,
+                "Last Month",
+                IF(
+                    YEAR('Viz Payments'[DatePay]) = YEAR(TODAY()) - 1
+                    && MONTH('Viz Payments'[DatePay]) = 12
+                    && MONTH(TODAY()) = 1,
+                    "Last Month",
+                    BLANK()
+                )
+            )
         )
     )
 )
