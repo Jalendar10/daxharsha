@@ -1,1 +1,12 @@
-YearMonth = VALUE(RIGHT(YEAR('Viz Payments'[DatePay]), 2) & FORMAT(MONTH('Viz Payments'[DatePay]), "00"))
+Column2 =
+IF(
+    YEAR('Viz payments'[DatePay]) = YEAR(TODAY())
+    && MONTH('Viz payments'[DatePay]) = MONTH(TODAY()),
+    "Current Month",
+    IF(
+        YEAR('Viz payments'[DatePay]) = YEAR(TODAY())
+        && MONTH('Viz payments'[DatePay]) = MONTH(TODAY()) - 1,
+        "Last Month",
+        ""
+    )
+)
