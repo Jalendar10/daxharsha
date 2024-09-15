@@ -1,1 +1,1 @@
-YearMonth = YEAR('Viz Payments'[DatePay]) * 100 + MONTH('Viz Payments'[DatePay])
+YearMonth = VALUE(RIGHT(YEAR('Viz Payments'[DatePay]), 2) & FORMAT(MONTH('Viz Payments'[DatePay]), "00"))
